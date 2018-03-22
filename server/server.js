@@ -27,6 +27,9 @@ app.get('/', (req, res, next) => {
     });
 });
 
+const userRoutes = require('./routes/account');
+app.use('/api/accounts', userRoutes);
+
 app.listen(config.port, (err) => {
     console.log('Awesome happens on port: ' + config.port);
 });
