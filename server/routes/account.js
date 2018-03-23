@@ -12,8 +12,8 @@ router.post('/signup', (req, res, next) => {
     user.isSeller = req.body.isSeller;
 
     // .findOne is a mongoose method
-    User.findOne({ email: req.body.email }, (err, user) => {
-        if (user){
+    User.findOne({ email: req.body.email }, (err, existingUser) => {
+        if (existingUser){
             res.json({
                 success: false,
                 message: 'Account with that email already exists'
@@ -30,6 +30,37 @@ router.post('/signup', (req, res, next) => {
                 message: 'Enjoy your token',
                 token: token
             });
+        }
+    });
+});
+
+router.post('/login', (req, res, next) => {
+    User.findOne({ email: req.body.email }, (err, existingUser) => {
+        if (err) throw err;
+        if (!existingUser) {
+            res.json({
+                success: false,
+                message: 'Authentication failed. User not found'
+            });
+        } else if (existingUser){
+            var validPassword = existingUser.comparePassword(req.body.password);
+            if (!validPassword){
+                res.json({
+                    success: false,
+                    message: 'Authentication failed. Wrong password'
+                });
+            } else {
+                var token = jwt.sign(
+                    { user: existingUser },
+                    config.secret,
+                    { expiresIn: '7d' }
+                );
+                res.json({
+                    success: true,
+                    message: 'Enjoy your token',
+                    token: token
+                });
+            }
         }
     });
 });
