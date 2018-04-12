@@ -27,8 +27,13 @@ app.get('/', (req, res, next) => {
     });
 });
 
+const mainRoutes = require('./routes/main');
 const userRoutes = require('./routes/account');
+const sellerRoutes = require('./routes/seller');
+
+app.use('/api', mainRoutes);
 app.use('/api/accounts', userRoutes);
+app.use('/api/seller', sellerRoutes);
 
 app.listen(config.port, (err) => {
     console.log('Awesome happens on port: ' + config.port);
