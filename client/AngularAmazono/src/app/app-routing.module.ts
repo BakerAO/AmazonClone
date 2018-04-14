@@ -7,11 +7,16 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AddressComponent } from './address/address.component';
 import { AuthGuardService } from './auth-guard.service';
+import { CategoriesComponent } from './categories/categories.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'categories',
+    component: CategoriesComponent
   },
   {
     path: 'register',
