@@ -15,7 +15,7 @@ export class PostProductComponent implements OnInit {
     price: 0,
     categoryId: '',
     description: '',
-    product_picture: null
+    productPicture: null
   };
 
   categories: any;
@@ -46,7 +46,7 @@ export class PostProductComponent implements OnInit {
       if (product.price) {
         if (product.categoryId) {
           if (product.description) {
-            if (product.product_picture) {
+            if (product.productPicture) {
               return true;
             } else {
               this.data.error('Select a product image');
@@ -66,21 +66,23 @@ export class PostProductComponent implements OnInit {
   }
 
   fileChange(event: any) {
-    this.product.product_picture = event.target.files[0];
+    this.product.productPicture = event.target.files[0];
   }
 
   async post() {
     this.btnDisabled = true;
     try {
       if (this.validate(this.product)) {
+        console.log(this.product);
         const form = new FormData();
         for (const key in this.product) {
           if (this.product.hasOwnProperty(key)) {
-            if (key === 'product_picture') {
+            console.log(key);
+            if (key === 'productPicture') {
               form.append(
-                'product_picture',
-                this.product.product_picture,
-                this.product.product_picture.name
+                'productPicture',
+                this.product.productPicture,
+                this.product.productPicture.name
               );
             } else {
               form.append(key, this.product[key]);
@@ -92,7 +94,9 @@ export class PostProductComponent implements OnInit {
         form
       );
       data['success']
-        ? this.data.success(data['message'])
+        ? this.router.navigate(['/profile/myproducts'])
+          .then(() => this.data.success(data['message']))
+          .catch(error => this.data.error(error))
         : this.data.error(data['message'])
       ;
       }

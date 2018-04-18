@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  name='';
-  email='';
-  password='';
-  password1='';
-  isSeller=false;
-  btnDisabled=false;
+  name = '';
+  email = '';
+  password = '';
+  password1 = '';
+  isSeller = false;
+  btnDisabled = false;
 
   constructor(private router: Router, private data: DataService, private rest: RestApiService) { }
 
@@ -22,25 +22,25 @@ export class RegistrationComponent implements OnInit {
   }
 
   validate() {
-    if (this.name){
-      if(this.email){
-        if(this.password){
-          if(this.password1){
-            if(this.password === this.password1){
+    if (this.name) {
+      if (this.email) {
+        if (this.password) {
+          if (this.password1) {
+            if (this.password === this.password1) {
               return true;
-            }else{
+            } else {
               this.data.error('Passwords do not match');
             }
-          }else{
+          } else {
             this.data.error('Confirmation Password is not entered');
           }
-        }else{
+        } else {
           this.data.error('Password is not entered');
         }
-      }else{
+      } else {
         this.data.error('Email is not entered');
       }
-    }else{
+    } else {
       this.data.error('Name is not entered');
     }
   }

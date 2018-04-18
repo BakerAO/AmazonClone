@@ -15,24 +15,24 @@ export class SettingsComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      if (!this.data.user){
+      if (!this.data.user) {
         await this.data.getProfile();
       }
       this.currentSettings = Object.assign({
         newPwd: '',
         pwdConfirm: ''
       }, this.data.user);
-    }catch(error){
+    } catch (error) {
       this.data.error(error);
     }
   }
 
-  validate(settings){
-    if(settings['name']){
-      if(settings['email']){
-        if(settings['newPwd']){
-          if(settings['pwdConfirm']){
-            if(settings['newPwd'] === settings['pwdConfirm']){
+  validate(settings) {
+    if (settings['name']) {
+      if (settings['email']) {
+        if (settings['newPwd']) {
+          if (settings['pwdConfirm']) {
+            if (settings['newPwd'] === settings['pwdConfirm']) {
               return true;
             } else {
               this.data.error('Passwords do not match.');
@@ -41,7 +41,7 @@ export class SettingsComponent implements OnInit {
             this.data.error('Enter confirmation password.');
           }
         } else {
-          if(!settings['pwdConfirm']){
+          if (!settings['pwdConfirm']) {
             return true;
           } else {
             this.data.error('Enter new password.');
@@ -72,7 +72,7 @@ export class SettingsComponent implements OnInit {
           ? (this.data.getProfile(), this.data.success(data['message']))
           : this.data.error(data['message']);
       }
-    } catch(error) {
+    } catch (error) {
       this.data.error(error['message']);
     }
     this.btnDisabled = false;
