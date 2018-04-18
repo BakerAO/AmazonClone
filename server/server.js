@@ -36,5 +36,5 @@ app.use('/api/accounts', userRoutes);
 app.use('/api/seller', sellerRoutes);
 
 app.listen(config.port, (err) => {
-    console.log('Awesome happens on port: ' + config.port);
+    console.log('The magic happens on port: ' + config.port);
 });

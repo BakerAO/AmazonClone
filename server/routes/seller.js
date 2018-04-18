@@ -1,6 +1,3 @@
-// access: AKIAJNLSBWVJF7EOGPCA
-// secret: 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
-
 const router = require('express').Router();
 const Product = require('../models/product');
 const aws = require('aws-sdk');
@@ -9,14 +6,15 @@ const multerS3 = require('multer-s3');
 const checkJWT = require('../middlewares/check-jwt');
 const faker = require('faker');
 
-const s3 = new aws.S3({ accessKeyId: "AKIAJNLSBWVJF7EOGPCA", secretAccessKey: "pwHXl5OqHvWu4iLilxbGfTCAagLruG8XMIKrtwyH" });
+aws.config.update({ region: 'us-west-2' });
+const s3 = new aws.S3({ accessKeyId: "AKIAIC5DXYJBBPH6DL4Q", secretAccessKey: "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" });
 
-const upload = multer({
+var upload = multer({
     storage: multerS3({
         s3: s3,
         bucket: 'amazonoproject',
         metadata: function(req, file, cb) {
-            cb(null, { fieldName: file.fieldName });
+            cb(null, { fieldName: file.fieldname });
         },
         key: function(req, file, cb) {
             cb(null, Date.now().toString());
@@ -39,7 +37,7 @@ router.route('/products')
                 }
             });
     })
-    .post([checkJWT, upload.single('product_picture')], (req, res, next) => {
+    .post([checkJWT, upload.single('productPicture')], (req, res, next) => {
         let product = new Product();
         product.owner = req.decoded.user._id;
         product.category = req.body.categoryId;
