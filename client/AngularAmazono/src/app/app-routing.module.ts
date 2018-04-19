@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from './auth-guard.service';
+
 import { HomeComponent } from './home/home.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AddressComponent } from './address/address.component';
-import { AuthGuardService } from './auth-guard.service';
 import { CategoriesComponent } from './categories/categories.component';
 import { PostProductComponent } from './post-product/post-product.component';
 import { MyProductsComponent } from './my-products/my-products.component';
+import { CategoryComponent } from './category/category.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,10 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesComponent
+  },
+  {
+    path: 'categories/:id',
+    component: CategoryComponent
   },
   {
     path: 'register',
