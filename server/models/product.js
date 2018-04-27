@@ -1,3 +1,5 @@
+const config = require('../config.js');
+
 const mongoose = require('mongoose');
 const mongooseAlgolia = require('mongoose-algolia');
 const deepPopulate = require('mongoose-deep-populate')(mongoose);
@@ -39,9 +41,9 @@ ProductSchema
 ProductSchema.plugin(deepPopulate);
 
 ProductSchema.plugin(mongooseAlgolia, {
-    appId: 'KV5XNDATQL',
-    apiKey: '864440e1986a9cfd1244d20aa2ad0619',
-    indexName: 'amazonov1',
+    appId: config.algoliaAppId,
+    apiKey: config.algoliaAdminApiKey,
+    indexName: config.algoliaIndexName,
     selector: '_id title image reviews description price owner created averageRating',
     populate: {
         path: 'owner reviews',

@@ -1,7 +1,9 @@
+const config = require('../config.js');
+
 const router = require('express').Router();
 const algoliaSearch = require('algoliasearch');
-const client = algoliaSearch('KV5XNDATQL', '864440e1986a9cfd1244d20aa2ad0619');
-const index = client.initIndex('amazonov1');
+const client = algoliaSearch(config.algoliaAppId, config.algoliaSearchOnlyApiKey);
+const index = client.initIndex(config.algoliaIndexName);
 
 router.get('/', (req, res, next) => {
     if(req.query.query) {
