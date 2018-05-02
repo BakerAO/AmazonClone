@@ -78,4 +78,44 @@ export class CartComponent implements OnInit {
     });
   }
 
+  validate() {
+    if (!this.quantities.every(data => data > 0)) {
+      this.data.warning('Quantity cannot be less than one.');
+    } else if (!localStorage.getItem('token')) {
+      this.router.navigate(['/login'])
+        .then(() => {
+          this.data.warning('You need to login before making a purchase.');
+        });
+    } else if (!this.data.user['address']) {
+      this.router.navigate(['/profile/address'])
+        .then(() => {
+          this.data.warning('You need to login before making a purchase.');
+        });
+    } else {
+      this.data.message = '';
+      return true;
+    }
+    return false;
+  }
+
+  checkout() {
+    this.btnDisabled = true;
+    try {
+      if (this.validate()) {
+        this.handler.open({
+          name: 'Amazono',
+          description: 'Checkout Payment',
+          amount: this.cartTotal * 100,
+          closed: () => {
+            this.btnDisabled = false;
+          }
+        });
+      } else {
+        this.btnDisabled = false;
+      }
+    } catch (error) {
+      this.data.error(error);
+    }
+  }
+
 }
