@@ -5,9 +5,10 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const checkJWT = require('../middlewares/check-jwt');
 const faker = require('faker');
+const config = require('../config.js');
 
 aws.config.update({ region: 'us-west-2' });
-const s3 = new aws.S3({ accessKeyId: "AKIAIC5DXYJBBPH6DL4Q", secretAccessKey: "DGUr9U5Dh1TWaBIJ4ai4GVTqXoQIbBqI4m6yoHG3" });
+const s3 = new aws.S3({ accessKeyId: config.aws.accessKeyId, secretAccessKey: config.aws.secretAccessKey });
 
 var upload = multer({
     storage: multerS3({

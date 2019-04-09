@@ -11,7 +11,7 @@ const app = express();
 mongoose.connect(config.database, (err) => {
     if (err) {
         console.log(err);
-    } else { 
+    } else {
         console.log('Connected to the database');
     }
 });
@@ -38,5 +38,5 @@ app.use('/api/seller', sellerRoutes);
 app.use('/api/search', productSearchRoutes);
 
 app.listen(config.port, (err) => {
-    console.log('The magic happens on port: ' + config.port);
+    console.log('Port: ' + config.port);
 });
